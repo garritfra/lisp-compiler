@@ -1,7 +1,21 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
 
 func main() {
-	fmt.Println("Hello World!")
+
+	for {
+		evaluate()
+	}
+}
+
+func evaluate() {
+	fmt.Printf("lisp> ")
+	reader := bufio.NewReader(os.Stdin)
+	text, _ := reader.ReadString('\n')
+	fmt.Printf(text)
 }
