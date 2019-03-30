@@ -1,0 +1,19 @@
+{
+  "name": "lisp-compiler",
+  "version": "0.0.1",
+  "description": "a basic lisp to js compiler implementation",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garritfra/lisp-compiler.git"
+  },
+  "author": "garritfranke@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/garritfra/lisp-compiler/issues"
+  },
+  "homepage": "https://github.com/garritfra/lisp-compiler#readme"
+}
