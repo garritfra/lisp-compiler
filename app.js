@@ -1,4 +1,5 @@
 const readline = require("readline");
+const parse = require("./parser/parsing");
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -14,5 +15,5 @@ rl.on("line", line => {
 });
 
 function evaluate(input) {
-  console.log(input);
+  console.log(parse(input));
 }
