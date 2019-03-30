@@ -9,13 +9,18 @@ import (
 func main() {
 
 	for {
-		evaluate()
+		evaluate(read())
 	}
 }
 
-func evaluate() {
+func read() string {
 	fmt.Printf("lisp> ")
 	reader := bufio.NewReader(os.Stdin)
 	text, _ := reader.ReadString('\n')
-	fmt.Printf(text)
+	return text
+}
+
+func evaluate(input string) {
+
+	fmt.Printf(input)
 }
