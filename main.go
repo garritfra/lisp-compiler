@@ -4,6 +4,8 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+
+	"github.com/garritfra/lisp-compiler/parser"
 )
 
 func main() {
@@ -23,4 +25,7 @@ func read() string {
 func evaluate(input string) {
 
 	fmt.Printf(input)
+	parser := parser.NewParser()
+
+	fmt.Println(&parser)
 }
