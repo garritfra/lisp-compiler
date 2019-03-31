@@ -2,5 +2,8 @@ mod parser;
 
 
 fn main() {
-    parser::parse();
+
+    let input = "(+ 1 2 3)";
+
+    parser::parse(input);
 }
