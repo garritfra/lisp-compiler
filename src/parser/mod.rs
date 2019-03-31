@@ -1,8 +1,6 @@
 mod parser;
 
-pub fn parse<'a>(input: &'a str) {
+pub fn parse<'a>(input: &'a str) -> Vec<parser::Token>{
     let tokens = parser::tokenize(input);
-
-    let tokenized = parser::lex(tokens);
-    println!("Parsing {:?}", tokenized);
+    parser::lex(tokens)
 }
