@@ -30,9 +30,11 @@ pub fn tokenize (input: &str) -> Vec<String> {
     let letters: Vec<String> = input.split("").map(|s| s.to_string()).collect();
     for letter in &letters {
         if specials.contains(letter) {
+            tokens.push(temp_token.join(""));
+            temp_token.clear();
             tokens.push(letter.to_string());
         } else {
-            if letter == &" " {
+            if specials.contains(letter) || letter == &" " {
                 tokens.push(temp_token.join(""));
                 temp_token.clear();
             } else {
@@ -63,7 +65,7 @@ fn get_type<'a> (token: String) -> Option<Type<'a>> {
         Type { name: "open_paren", pattern: Regex::new(r"[(]").unwrap() },
         Type { name: "close_paren", pattern: Regex::new(r"[)]").unwrap() },
         Type { name: "operator", pattern: Regex::new(r"[\+\-\*/]").unwrap() },
-        Type { name: "number", pattern: Regex::new(r"([+-]?[0-9]+(?:\.[0-9]*)?)").unwrap() },
+        Type { name: "number", pattern: Regex::new(r"^[0-9\.]+$").unwrap() },
     ];
 
     for t in types {
