@@ -1,10 +1,13 @@
 {
-  "name": "lisp-compiler",
+  "name": "lisper",
   "version": "0.0.1",
   "description": "a basic lisp to js compiler implementation",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
+  },
+  "bin": {
+    "lisper": "app.js"
   },
   "repository": {
     "type": "git",
