@@ -1,6 +1,6 @@
 mod parser;
+pub mod scanner;
 
-pub fn parse<'a>(input: &'a str) -> Result<Vec<parser::Token>, String> {
-    let tokens = parser::tokenize(input);
-    parser::lex(tokens)
+pub fn parse<'a>(input: &'a str) -> Vec<String> {
+    scanner::Scanner::new().scan(input)
 }
