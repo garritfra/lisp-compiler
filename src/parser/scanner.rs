@@ -1,30 +1,31 @@
 extern crate regex;
 
-pub struct Scanner {
-    index: i32,
+pub struct Scanner {}
+
+fn is_alphabetical(s: String) -> bool {
+    let alphabetical = regex::Regex::new(r"[A-Za-z]").unwrap();
+    alphabetical.is_match(&s)
 }
 
 impl Scanner {
     pub fn new() -> Scanner {
-        Scanner { index: -1 }
+        Scanner {}
     }
 
     pub fn scan<'a>(&mut self, input: &'a str) -> Vec<String> {
         let mut tokens = Vec::new();
         let mut chars = input.chars();
-
         loop {
             let character = chars.next();
-            let alphabetical = regex::Regex::new(r"[A-Za-z]").unwrap();
 
             match character {
                 Some(character) => {
-                    if alphabetical.is_match(&character.to_string()) {
+                    if is_alphabetical(character.to_string()) {
                         tokens.push(self.parse_word(character, &mut chars));
                     }
-
                     match character {
                         '(' | ')' => tokens.push(character.to_string()),
+
                         _ => break,
                     }
                 }
