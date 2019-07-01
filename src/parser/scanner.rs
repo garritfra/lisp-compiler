@@ -7,6 +7,11 @@ fn is_alphabetical(s: String) -> bool {
     alphabetical.is_match(&s)
 }
 
+fn is_number(s: String) -> bool {
+    let numbers = regex::Regex::new(r"[0-9]").unwrap();
+    numbers.is_match(&s)
+}
+
 impl Scanner {
     pub fn new() -> Scanner {
         Scanner {}
@@ -16,18 +21,29 @@ impl Scanner {
         let mut tokens = Vec::new();
         let mut chars = input.chars();
         loop {
-            let character = chars.next();
 
-            match character {
+            match chars.clone().peekable().peek() {
                 Some(character) => {
+                    if is_number(character.to_string()) {
+                        tokens.push(self.parse_number(&mut chars));
+                        continue;
+                    }
                     if is_alphabetical(character.to_string()) {
-                        tokens.push(self.parse_word(character, &mut chars));
+                        tokens.push(self.parse_word(&mut chars));
+                        continue;
                     }
                     match character {
-                        '(' | ')' => tokens.push(character.to_string()),
-
+                        '(' | ')' | '+' | '-' | '*' | '/' => {
+                            chars.next();
+                            tokens.push(character.to_string())
+                        }
+                        ' ' | '\n' => {
+                            chars.next();
+                            continue;
+                        }
                         _ => break,
                     }
+
                 }
                 None => break,
             }
@@ -36,23 +52,32 @@ impl Scanner {
         tokens
     }
 
-    fn parse_word<'a>(&mut self, character: char, chars: &mut std::str::Chars<'a>) -> String {
+    fn parse_word<'a>(&mut self, chars: &mut std::str::Chars<'a>) -> String {
         let mut word = Vec::<String>::new();
+        while let Some(c) = chars.next() {
+            match c {
+                ' ' | '\n' => break,
+                _ => word.push(c.to_string()),
+            }
+        }
+        word.concat()
+    }
 
-        word.push(character.to_string());
+    fn parse_number<'a>(&mut self, chars: &mut std::str::Chars<'a>) -> String {
+        let mut number = Vec::<String>::new();
 
-        loop {
-            if let Some(c) = chars.next() {
-                match c {
-                    ' ' | '\n' => {
-                        word.push(c.to_string());
-                        break;
+        while let Some(c) = chars.next() {
+            match c {
+                ' ' | '\n' => return number.concat(),
+                _ => {
+                    if is_number(c.to_string()) {
+                        number.push(c.to_string())
+                    } else {
+                        return number.concat();
                     }
-                    _ => word.push(c.to_string()),
                 }
             }
         }
-
-        word.concat()
+        number.concat()
     }
 }
