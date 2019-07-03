@@ -55,9 +55,11 @@ impl Scanner {
     fn parse_word<'a>(&mut self, chars: &mut std::str::Chars<'a>) -> String {
         let mut word = Vec::<String>::new();
         while let Some(c) = chars.next() {
-            match c {
-                ' ' | '\n' => break,
-                _ => word.push(c.to_string()),
+            if is_alphabetical(c.to_string()) {
+                word.push(c.to_string());
+                continue;
+            } else {
+                break;
             }
         }
         word.concat()
